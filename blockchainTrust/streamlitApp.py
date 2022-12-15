@@ -43,7 +43,7 @@ timeLock_contract = load_contract()
 
 
 ################################################################################
-# Move and Display Funds
+# Display Titles and Wallet Details
 ################################################################################
 
 # Title
