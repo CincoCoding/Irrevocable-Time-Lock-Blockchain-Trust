@@ -109,6 +109,8 @@ if st.button("Deploy Contract"):
     
     ################################################################################
     # Use the timelock contract functions from Solidity
+    # each function that changes contract state must be;
+    # paid for, signed, sent, and received(via receipt)
     ################################################################################
     
     # Create contract instance
@@ -125,7 +127,7 @@ if st.button("Deploy Contract"):
     
     # Sign transaction again
     receiveMoneysigned_transaction = w3.eth.account.sign_transaction(receiveMoneyTransaction, private_key=str(private_key))
-    st.write("#### Receive Money Transaction Signed")
+    st.write("#### Receive Money Transaction Signed!")
     
     # Send transaction
     receiveMoneytransaction_hash = w3.eth.send_raw_transaction(receiveMoneysigned_transaction.rawTransaction)
@@ -136,17 +138,17 @@ if st.button("Deploy Contract"):
     st.write("#### Receive Money Receipt")
     st.write(receiveMoneytransaction_receipt)
     
-    # Display trustee address
+    # Display contract address
     contract_address = str(timelock_contract_instance.address)
     st.write("## Contract Address: ")
     st.write(f"### {contract_address}")
     
-    # Display trustee balance
+    # Display contract balance
     contract_balance = w3.eth.getBalance(contract_address)
     st.write("## Contract Balance: ")
     st.write(f"### {contract_balance}")   
     
     # NOT WORKING YET
-    # withdraw solidity function that moves ETH from contract back to wallet after duration
-    # timelock_contract_instance.functions.withdraw().transact({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trustee_address,"nonce": nonce+2})
+    withdraw solidity function that moves ETH from contract back to wallet after duration
+    timelock_contract_instance.functions.withdraw().transact({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trustee_address,"nonce": nonce+2})
 
