@@ -6,68 +6,64 @@ import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
 
 contract Timelock {
-
     address payable public trustee;
     address payable beneficiary1;
     address payable beneficiary2;
     
-
-    uint public constant waitingPeriod = 30 seconds;
+    uint public initialWithdrawalTime;
+    uint public waitingPeriod;
     uint public endOfWaitingPeriod;
     uint public lastWithdrawalTimestamp;
 
-    uint public amount;
+    // maybe remove
     uint public contractBalance;
- 
 
-    constructor(address payable _trustee, address payable _beneficiary1, address payable _beneficiary2){
-        endOfWaitingPeriod = block.timestamp + waitingPeriod;
+    uint trustSize;
+    uint paymentPerPayoutPeriod;
+    uint numberOfPayments;
+    uint finalPaymentTime;
+
+
+    constructor(address payable _trustee, address payable _beneficiary1, address payable _beneficiary2, uint _paymentPerPayoutPeriod, uint _waitingPeriod){
         trustee = _trustee;
         beneficiary1 = _beneficiary1;
         beneficiary2 = _beneficiary2;
+                
+        waitingPeriod = _waitingPeriod;
+        
+        paymentPerPayoutPeriod = _paymentPerPayoutPeriod;
+
+        initialWithdrawalTime = block.timestamp;
+        endOfWaitingPeriod = block.timestamp + waitingPeriod;
+
+        numberOfPayments = trustSize/(paymentPerPayoutPeriod);
+        finalPaymentTime = initialWithdrawalTime + (numberOfPayments * waitingPeriod);
+
         contractBalance = address(this).balance;
     }
 
-    function getInfo() view public returns(address payable, address payable, address payable, uint) {
-        return (trustee, beneficiary1,  beneficiary2, contractBalance);
-    }
 
-    function setInfo(address payable newTrustee, address payable newBeneficiary1, address payable newBeneficiary2) public {
-        trustee = newTrustee;
-        beneficiary1 = newBeneficiary1;
-        beneficiary2 = newBeneficiary2;
-    }
-
-//    function withdraw(address payable recipient) public  {
-    function withdraw(uint _amount,address payable _beneficiary1, address payable _beneficiary2) public  {
-
-        amount = _amount;
-
-        require(_beneficiary1 == beneficiary1 || _beneficiary1 == beneficiary2, "One or more members are not in this Trust!");
-        require(_beneficiary2 == beneficiary1 || _beneficiary2 == beneficiary2, "One or more members are not in this Trust!");
+    function withdraw() public{
+        require(msg.sender == beneficiary1 || msg.sender == beneficiary2, "Only beneficiaries may withdraw from the Trust!");
+        require(address(this).balance >= paymentPerPayoutPeriod, "Insufficient funds!");
+        require(block.timestamp >= lastWithdrawalTimestamp + waitingPeriod, "You are not yet allowed to withdraw!");
         
-        require(address(this).balance >= amount, "Sorry, your Trust has run out!");
-        require (block.timestamp >= endOfWaitingPeriod, "Too Early!");
-        require(block.timestamp >= lastWithdrawalTimestamp + waitingPeriod, "Withdrawal interval has not yet passed");
-        contractBalance -= amount;
-        beneficiary1.transfer(amount/2);
-        beneficiary2.transfer(amount/2);
+        beneficiary1.transfer(paymentPerPayoutPeriod/2);
+        beneficiary2.transfer(paymentPerPayoutPeriod/2);
+
         lastWithdrawalTimestamp = block.timestamp;
+        contractBalance -= paymentPerPayoutPeriod;
+        
     }
 
-
-    function receiveMoney() public payable {
-        contractBalance += msg.value;
-    }
 
     function deposit() public payable {
+        require(trustee == msg.sender, "Only the trustee may deposit!");
         contractBalance = address(this).balance;
+        lastWithdrawalTimestamp = block.timestamp;
+        trustSize = msg.value;
     }
 
-    function getBalance() public view returns (uint256) {
-        return address(this).balance;
-    }
-
-   //  function() external payable {}
+     // function() external payable {}
 
 }
