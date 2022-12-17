@@ -53,5 +53,8 @@ contract irrevocableTrust {
     function viewContractBalance() public view returns (uint) {
         return contractBalance;
     }
+    function viewNextAvailableWithdrawalTime() public view returns (uint) {
+        return nextAvailableWithdrawalTime;
+    }
 
 }
