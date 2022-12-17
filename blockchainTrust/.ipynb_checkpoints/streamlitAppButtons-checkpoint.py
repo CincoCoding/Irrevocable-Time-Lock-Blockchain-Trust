@@ -96,6 +96,7 @@ if a:
     st.session_state.x = timeLock_contract.constructor(trustee_address).buildTransaction({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trustee_address,"nonce": nonce})
     st.write(st.session_state.x)
 
+
 b = st.button('Sign Transaction')
 if b:
     st.write(st.session_state.x)
