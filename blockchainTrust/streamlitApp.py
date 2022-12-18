@@ -61,29 +61,30 @@ beneficiary2Address = st.sidebar.selectbox("Select Beneficiary Two", options=acc
 
 # Display trustee balance
 trusteeBalance = str(w3.eth.getBalance(trusteeAddress))
-st.write("## Trustee Balance: ")
-st.write(f"### {trusteeBalance}")
+st.write("#### Trustee Balance: ")
+st.write(f"###### {trusteeBalance}")
          
 # Display beneficiary1 balance
 beneficiary1Balance = str(w3.eth.getBalance(beneficiary1Address))
-st.write("## Beneficiary One Balance: ")
-st.write(f"### {beneficiary1Balance}")
+st.write("#### Beneficiary One Balance: ")
+st.write(f"##### {beneficiary1Balance}")
 
 # Display beneficiary2 balance
 beneficiary2Balance = str(w3.eth.getBalance(beneficiary2Address))
-st.write("## Beneficiary Two Balance: ")
-st.write(f"### {beneficiary2Balance}")
+st.write("#### Beneficiary Two Balance: ")
+st.write(f"##### {beneficiary2Balance}")
 
-# User selects amount to deposit into contract
-paymentPerPayoutPeriod = st.text_input("paymentPerPayoutPeriod")
-waitingPeriod = st.text_input("waitingPeriod")
+with st.sidebar:
+    # User selects amount to deposit into contract
+    paymentPerPayoutPeriod = st.text_input("paymentPerPayoutPeriod")
+    waitingPeriod = st.text_input("waitingPeriod")
+
+    # Transactions must be signed with private key
+    privateKey = st.text_input("Trustee Private Key")
 
 ################################################################################
 # Create and Deploy Contract
 ################################################################################
-
-# Transactions must be signed with private key
-privateKey = st.text_input("Trustee Private Key")
 
 # Nonce for security
 nonce = w3.eth.getTransactionCount(trusteeAddress)
@@ -92,38 +93,40 @@ constructContract = 1
 signedContract = 2
 
 
-
-a = st.button('Construct Contract')
-if a:
-    st.session_state.constructContract = contract.constructor(Web3.toChecksumAddress(trusteeAddress), Web3.toChecksumAddress(beneficiary1Address), Web3.toChecksumAddress(beneficiary2Address), int(paymentPerPayoutPeriod), int(waitingPeriod)).buildTransaction({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trusteeAddress,"nonce": nonce})
+with st.sidebar:
+    a = st.button('Construct Contract')
+    if a:
+        st.session_state.constructContract = contract.constructor(Web3.toChecksumAddress(trusteeAddress), Web3.toChecksumAddress(beneficiary1Address), Web3.toChecksumAddress(beneficiary2Address), int(paymentPerPayoutPeriod), int(waitingPeriod)).buildTransaction({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trusteeAddress,"nonce": nonce})
     st.write(st.session_state.constructContract)
 
-b = st.button('Sign Contract')
-if b:
-    st.session_state.signedContract = w3.eth.account.sign_transaction(st.session_state.constructContract, private_key=str(privateKey))
-    st.write("#### Contract Signed!")
+    b = st.button('Sign Contract')
+    if b:
+        st.session_state.signedContract = w3.eth.account.sign_transaction(st.session_state.constructContract, private_key=str(privateKey))
+        st.write("#### Contract Signed!")
 
-c = st.button("Send Contract")
-if c:
-    st.session_state.contractTransactionHash = w3.eth.send_raw_transaction(st.session_state.signedContract.rawTransaction)
-    st.write("#### Signed Transaction Sent!")
+    c = st.button("Send Contract")
+    if c:
+        st.session_state.contractTransactionHash = w3.eth.send_raw_transaction(st.session_state.signedContract.rawTransaction)
+        st.write("#### Signed Transaction Sent!")
   
 
-# d = st.button("Don't forget your receipt!")
-# if d:
-#     # Don't forget your receipt
-#     transaction_receipt = w3.eth.waitForTransactionReceipt(transaction_hash)
-#     st.write(transaction_receipt)
+d = st.button("Don't forget your receipt!")
+if d:
+    # Don't forget your receipt
+    st.session_state.transactionReceipt = w3.eth.waitForTransactionReceipt(st.session_state.contractTransactionHash)
+    st.write(st.session_state.transactionReceipt)
     
-  ################################################################################
+    st.session_state.timelock_contract_instance = w3.eth.contract(address=st.session_state.transactionReceipt.contractAddress, abi=irrevocableTrust_ABI)
+    ################################################################################
     # Use the timelock contract functions from Solidity
     # each function that changes contract state must be;
     # paid for, signed, sent, and received(via receipt)
     ################################################################################
     
 # Create contract instance
-timelock_contract_instance = w3.eth.contract(address=transaction_receipt.contractAddress, abi=timeLock_ABI)
-
+e = st.button("Contract Instance")
+if e:
+    print("hi")
 # Transact payable solidity function receiveMoney that moves ETH from wallet to contract
 receiveMoneyTransaction = timelock_contract_instance.functions.receiveMoney().buildTransaction(
 {
