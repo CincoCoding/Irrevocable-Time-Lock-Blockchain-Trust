@@ -1,8 +1,10 @@
-# Irrevocable-Time-Lock-Blockchain-Trust
+<a name="readme-top"></a>
+
+##### Irrevocable-Time-Lock-Blockchain-Trust
 
 Group Project 3 - December 19, 2022 - UMN Fintech
 
-## Team Members
+### Group Members
 - David Garcia 
 - Luke Turner
 - Kyle Jensen
