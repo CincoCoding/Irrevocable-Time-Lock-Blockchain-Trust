@@ -49,6 +49,7 @@ Adjustable Features:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- BUILT WITH -->
+## Built With
 
 * [![Solidity][Solidity.io]][Solidity-url]
 * [![Python][Python.org]][Python-url]
@@ -112,6 +113,7 @@ Before running or installing anything else, the following libraries need to be i
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE -->
+## Usage
 
 ## Current Usage
 
@@ -127,8 +129,6 @@ This project is the foundational work for a larger future project idea.  As of n
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[linkedin-shield]: 
-[linkedin-url]: 
 [product-screenshot]: baby-trust-pic-edit.png
 [Solidity.io]: https://img.shields.io/badge/solidity-363636?style=for-the-badge&logo=solidity&logoColor=white
 [Solidity-url]: https://www.solidity.io/
