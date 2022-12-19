@@ -82,15 +82,16 @@ with st.sidebar:
     # Transactions must be signed with private key
     privateKey = st.text_input("Trustee Private Key")
 
+    
 ################################################################################
 # Create and Deploy Contract
 ################################################################################
 
 # Nonce for security
 nonce = w3.eth.getTransactionCount(trusteeAddress)
+beneficiary1Nonce = w3.eth.getTransactionCount(beneficiary1Address)
 
 constructContract = 1
-signedContract = 2
 
 
 with st.sidebar:
@@ -110,56 +111,84 @@ with st.sidebar:
         st.write("#### Signed Transaction Sent!")
   
 
-d = st.button("Don't forget your receipt!")
-if d:
+    d = st.button("Don't forget your receipt!")
+    if d:
     # Don't forget your receipt
-    st.session_state.transactionReceipt = w3.eth.waitForTransactionReceipt(st.session_state.contractTransactionHash)
-    st.write(st.session_state.transactionReceipt)
+        st.session_state.transactionReceipt = w3.eth.waitForTransactionReceipt(st.session_state.contractTransactionHash)
+        st.write(st.session_state.transactionReceipt)
     
-    st.session_state.timelock_contract_instance = w3.eth.contract(address=st.session_state.transactionReceipt.contractAddress, abi=irrevocableTrust_ABI)
+        st.session_state.irrevocableTrust_contract_instance = w3.eth.contract(address=st.session_state.transactionReceipt.contractAddress, abi=irrevocableTrust_ABI)
     ################################################################################
     # Use the timelock contract functions from Solidity
     # each function that changes contract state must be;
     # paid for, signed, sent, and received(via receipt)
     ################################################################################
     
+deposit_amount = st.text_input("Deposit Amount: ")
+beneficiary1PrivateKey = st.text_input("Beneficiary 1 Private Key")
 # Create contract instance
-e = st.button("Contract Instance")
+e = st.button("Deposit")
 if e:
-    print("hi")
-# Transact payable solidity function receiveMoney that moves ETH from wallet to contract
-receiveMoneyTransaction = timelock_contract_instance.functions.receiveMoney().buildTransaction(
-{
-'from': trustee_address,
-'value': int(transaction_amount),
-'chainId': 1337,
-'nonce': nonce + 1}
-)
+    # Transact payable solidity function receiveMoney that moves ETH from wallet to contract
+    st.session_state.deposit = st.session_state.irrevocableTrust_contract_instance.functions.deposit().buildTransaction(
+    {
+    'from': trusteeAddress,
+    'value': int(deposit_amount),
+    'chainId': 1337,
+    'nonce': nonce}
+    )
+    
+    # Sign transaction again
+    st.session_state.signed_deposit = w3.eth.account.sign_transaction(st.session_state.deposit, private_key=str(privateKey))
+    st.write("#### Deposit Signed!")
+    
+    # Send transaction
+    st.session_state.depositTransactionHash = w3.eth.send_raw_transaction(st.session_state.signed_deposit.rawTransaction)
+    st.write("#### Deposit Sent!")
+    
+    # Get receipt
+    st.session_state.depositReceipt = w3.eth.waitForTransactionReceipt(st.session_state.depositTransactionHash)
+    st.write("#### Deposit Receipt")
+    st.write(st.session_state.depositReceipt)
 
-# Sign transaction again
-receiveMoneysigned_transaction = w3.eth.account.sign_transaction(receiveMoneyTransaction, private_key=str(private_key))
-st.write("#### Receive Money Transaction Signed!")
-
-# Send transaction
-receiveMoneytransaction_hash = w3.eth.send_raw_transaction(receiveMoneysigned_transaction.rawTransaction)
-st.write("#### Receive Money Transaction Sent!")
-
-# Get receipt
-receiveMoneytransaction_receipt = w3.eth.waitForTransactionReceipt(receiveMoneytransaction_hash)
-st.write("#### Receive Money Receipt")
-st.write(receiveMoneytransaction_receipt)
-
-# Display contract address
-contract_address = str(timelock_contract_instance.address)
-st.write("## Contract Address: ")
-st.write(f"### {contract_address}")
-
-# Display contract balance
-contract_balance = w3.eth.getBalance(contract_address)
-st.write("## Contract Balance: ")
-st.write(f"### {contract_balance}")   
-
-# NOT WORKING YET
-# withdraw solidity function that moves ETH from contract back to wallet after duration
-timelock_contract_instance.functions.withdraw().transact({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trustee_address,"nonce": nonce+2})
+# Create contract instance
+f = st.button("withdraw")
+if f:
+    # Transact payable solidity function receiveMoney that moves ETH from wallet to contract
+    st.session_state.withdrawal = st.session_state.irrevocableTrust_contract_instance.functions.withdraw().buildTransaction(
+    {
+    'from': beneficiary1Address,
+    'value': 0,
+    'chainId': 1337,
+    'nonce': beneficiary1Nonce}
+    )
+    
+    # Sign transaction again
+    st.session_state.signed_withdrawal = w3.eth.account.sign_transaction(st.session_state.withdrawal, private_key=str(beneficiary1PrivateKey))
+    st.write("#### Withdrawal Signed!")
+    
+    # Send transaction
+    st.session_state.withdrawalTransactionHash = w3.eth.send_raw_transaction(st.session_state.signed_withdrawal.rawTransaction)
+    st.write("#### Withdrawal Sent!")
+    
+    # Get receipt
+    st.session_state.withdrawalReceipt = w3.eth.waitForTransactionReceipt(st.session_state.withdrawalTransactionHash)
+    st.write("#### Withdrawal Receipt")
+    st.write(st.session_state.withdrawalReceipt)
+    
+    
+    
+# # Display contract address
+# contract_address = str(timelock_contract_instance.address)
+# st.write("## Contract Address: ")
+# st.write(f"### {contract_address}")
+# 
+# # Display contract balance
+# contract_balance = w3.eth.getBalance(contract_address)
+# st.write("## Contract Balance: ")
+# st.write(f"### {contract_balance}")   
+# 
+# # NOT WORKING YET
+# # withdraw solidity function that moves ETH from contract back to wallet after duration
+# timelock_contract_instance.functions.withdraw().transact({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trustee_address,"nonce": nonce+2})
 
