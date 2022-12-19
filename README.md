@@ -25,15 +25,13 @@ Group Project 3 - December 19, 2022 - UMN Fintech
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#contact">Contributors</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Irrevocable Time Lock Trust][Irrevocable_Time_Lock_Trust]](https://github.com/CincoCoding/Irrevocable-Time-Lock-Blockchain-Trust/blob/Kyle/baby-trust-pic-edit.png)
+![Irrevocable Time Lock Trust](baby-trust-pic-edit.png)
 
 The primary goal of our project is to create a blockchain wallet with a time-lock that acts as an irrevocable trust.  
 
@@ -54,7 +52,7 @@ Adjustable Features:
 
 * [![Solidity][Solidity.io]][Solidity-url]
 * [![Python][Python.org]][Python-url]
-* [![Streamlit][Streamlit.io]][Steamlit-url]
+* [![Streamlit][Streamlit.io]][Streamlit-url]
 * [![Ganache][Trufflesuite.com]][Ganache-url]
 * [![Json][Json.org]][Json-url]
 * [![Remix][Remix.ethereum.org]][Remix-url]
@@ -132,19 +130,19 @@ This project is the foundational work for a larger future project idea.  As of n
 [linkedin-shield]: 
 [linkedin-url]: 
 [product-screenshot]: baby-trust-pic-edit.png
-[Solidity.io]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Solidity.io]: https://img.shields.io/badge/solidity-363636?style=for-the-badge&logo=solidity&logoColor=white
 [Solidity-url]: https://www.solidity.io/
-[Python.org]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Python.org]: https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=61DAFB
 [Python-url]: https://www.python.org/
-[Streamlit.io]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Streamlit.io]: https://img.shields.io/badge/streamlit.io-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=4FC08D
 [Streamlit-url]: https://streamlit.io/
-[Trufflesuite.com]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Trufflesuite.com]: https://img.shields.io/badge/ganache-FF4B4B?style=for-the-badge&logo=ganache&logoColor=white
 [Ganache-url]: https://trufflesuite.com/ganache/
-[Json.org]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Json.org]: https://img.shields.io/badge/Json-000000?style=for-the-badge&logo=json&logoColor=FF3E00
 [Json-url]: https://www.json.org/json-en.html
-[Remix.ethereum.org]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Remix.ethereum.org]: https://img.shields.io/badge/Remix-000000?style=for-the-badge&logo=remix&logoColor=white
 [Remix-url]: https://remix.ethereum.org/
-[Ethereum.org]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Ethereum.org]: https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white
 [Ethereum-url]: https://ethereum.org/en/
 
 
