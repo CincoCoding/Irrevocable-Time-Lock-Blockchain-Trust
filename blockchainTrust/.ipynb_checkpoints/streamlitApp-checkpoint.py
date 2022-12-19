@@ -91,14 +91,12 @@ with st.sidebar:
 nonce = w3.eth.getTransactionCount(trusteeAddress)
 beneficiary1Nonce = w3.eth.getTransactionCount(beneficiary1Address)
 
-constructContract = 1
-
 
 with st.sidebar:
     a = st.button('Construct Contract')
     if a:
         st.session_state.constructContract = contract.constructor(Web3.toChecksumAddress(trusteeAddress), Web3.toChecksumAddress(beneficiary1Address), Web3.toChecksumAddress(beneficiary2Address), int(paymentPerPayoutPeriod), int(waitingPeriod)).buildTransaction({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trusteeAddress,"nonce": nonce})
-    st.write(st.session_state.constructContract)
+        st.write(st.session_state.constructContract)
 
     b = st.button('Sign Contract')
     if b:
