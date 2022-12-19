@@ -91,14 +91,25 @@ Before running or installing anything else, the following libraries need to be i
    ```sh
    git clone https://github.com/CincoCoding/Irrevocable-Time-Lock-Blockchain-Trust.git
    ```
-3. Install NPM packages
+   
+### Running Streamlit
+
+1. Open Ganache with access to wallets
+2. Locate the 'streamlitApp.py' file
+3. Run the app in terminal using the command
    ```sh
-   npm install
+   streamlit run streamlitApp.py
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+4. Choose Trustee and copy 'Private Key' from Ganache and paste into the applicable area
+5. Choose Beneficiary 1 and copy 'Private Key' from Ganache and paste into the applicable area
+6. Choose Beneficiary 2 and copy 'Private Key' from Ganache and paste into the applicable area
+7. Choose Deposit amount
+8. Choose time period for Time-Lock function
+9. Create Contract
+10. Send Contract
+11. Sign Contract
+12. Wait alloted Time-Lock amount of time, then withdraw using the correct wallets (Beneficiary 1 and Beneficiary 2)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -115,3 +126,25 @@ This project is the foundational work for a larger future project idea.  As of n
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[linkedin-shield]: 
+[linkedin-url]: 
+[product-screenshot]: baby-trust-pic-edit.png
+[Solidity.io]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Solidity-url]: https://www.solidity.io/
+[Python.org]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Python-url]: https://www.python.org/
+[Streamlit.io]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Streamlit-url]: https://streamlit.io/
+[Trufflesuite.com]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Ganache-url]: https://trufflesuite.com/ganache/
+[Json.org]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Json-url]: https://www.json.org/json-en.html
+[Remix.ethereum.org]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Remix-url]: https://remix.ethereum.org/
+[Ethereum.org]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Ethereum-url]: https://ethereum.org/en/
+
+
