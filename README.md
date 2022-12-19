@@ -111,7 +111,7 @@ Before running or installing anything else, the following libraries need to be i
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
+<!-- USAGE -->
 
 ## Current Usage
 
