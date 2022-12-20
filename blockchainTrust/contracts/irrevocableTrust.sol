@@ -44,7 +44,7 @@ contract irrevocableTrust {
     function deposit() public payable {
         require(trustee == msg.sender, "Only the trustee may deposit!");
 
-        lastWithdrawalTimestamp = block.timestamp; // update for initial withdrawal
+        lastWithdrawalTimestamp = block.timestamp; // update for initial withdrawal wait
         depositedAmount = msg.value;
         contractBalance = address(this).balance;
     }
@@ -53,8 +53,8 @@ contract irrevocableTrust {
     function viewContractBalance() public view returns (uint) {
         return contractBalance;
     }
-    function viewNextAvailableWithdrawalTime() public view returns (uint) {
-        return nextAvailableWithdrawalTime;
+    function viewNextAvailableWithdrawalTime() public view returns (uint) { 
+        return nextAvailableWithdrawalTime - lastWithdrawalTimestamp;
     }
 
 }

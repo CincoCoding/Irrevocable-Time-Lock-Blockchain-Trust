@@ -8,7 +8,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
 import web3
-import pandas as pd
 
 # Load .env file
 load_dotenv()
@@ -177,19 +176,9 @@ if f:
     st.write("#### Withdrawal Receipt")
     st.write(st.session_state.withdrawalReceipt)
     
-    
-    
-# # Display contract address
-# contract_address = str(timelock_contract_instance.address)
-# st.write("## Contract Address: ")
-# st.write(f"### {contract_address}")
-# 
-# # Display contract balance
-# contract_balance = w3.eth.getBalance(contract_address)
-# st.write("## Contract Balance: ")
-# st.write(f"### {contract_balance}")   
-# 
-# # NOT WORKING YET
-# # withdraw solidity function that moves ETH from contract back to wallet after duration
-# timelock_contract_instance.functions.withdraw().transact({"gasPrice": w3.eth.gas_price,"chainId": 1337, "from": trustee_address,"nonce": nonce+2})
-
+# GETTERS BELOW
+g = st.button("View Balance")
+if g:
+    # View contract's ETH balance (FREE)
+    st.session_state.contractBalance = st.session_state.irrevocableTrust_contract_instance.functions.viewContractBalance().call()
+    st.write(st.session_state.contractBalance)
