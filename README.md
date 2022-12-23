@@ -33,7 +33,7 @@ Group Project 3 - December 19, 2022 - UMN Fintech
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Irrevocable Time Lock Trust](baby-trust-pic-edit.png)
+![Irrevocable Time Lock Trust](./moreInfo/babyTrustPic.png)
 
 The primary goal of our project is to create a blockchain wallet with a time-lock that acts as an irrevocable trust.  
 
