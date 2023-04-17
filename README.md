@@ -103,13 +103,12 @@ Before running or installing anything else, the following libraries need to be i
    ```
 4. Choose Trustee and copy 'Private Key' from Ganache and paste into the applicable area
 5. Choose Beneficiary 1 and copy 'Private Key' from Ganache and paste into the applicable area
-6. Choose Beneficiary 2 and copy 'Private Key' from Ganache and paste into the applicable area
-7. Choose Deposit amount
-8. Choose time period for Time-Lock function
-9. Create Contract
-10. Send Contract
-11. Sign Contract
-12. Wait alloted Time-Lock amount of time, then withdraw using the correct wallets (Beneficiary 1 and Beneficiary 2)
+6. Choose Deposit amount
+7. Choose time period for Time-Lock function
+8. Create Contract
+9. Send Contract
+10. Sign Contract
+11. Wait alloted Time-Lock amount of time, then withdraw using the correct wallets (Beneficiary 1 and Beneficiary 2)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
