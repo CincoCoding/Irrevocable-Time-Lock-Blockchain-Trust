@@ -135,6 +135,7 @@ if e:
     'from': trusteeAddress,
     'value': int(deposit_amount),
     'chainId': 1337,
+    'gasPrice': w3.eth.gas_price,
     'nonce': nonce}
     )
     
@@ -159,6 +160,7 @@ if f:
     {
     'from': beneficiary1Address,
     'value': 0,
+    'gasPrice': w3.eth.gas_price,
     'chainId': 1337,
     'nonce': beneficiary1Nonce}
     )
